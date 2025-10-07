@@ -24,10 +24,13 @@ with open("label_encoder.pkl", "rb") as encoder_file:
     label_encoder = pickle.load(encoder_file)
 
 
-cred = credentials.Certificate("serviceAccountKey.json")  
-firebase_admin.initialize_app(cred, {
-    "databaseURL": "https://earlyfloodalertsystem-default-rtdb.firebaseio.com/"
-})
+firebase_key = os.getenv("FIREBASE_KEY")
+
+if firebase_key:
+    cred = credentials.Certificate(json.loads(firebase_key))
+    firebase_admin.initialize_app(cred)
+else:
+    raise ValueError("FIREBASE_KEY environment variable not found.")
 
 
 class FloodData(BaseModel):
