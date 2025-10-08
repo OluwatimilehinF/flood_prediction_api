@@ -5,6 +5,7 @@ import pandas as pd
 import firebase_admin
 from firebase_admin import credentials, db
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI(title="Flood Prediction API")
 
